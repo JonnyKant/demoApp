@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="addProductframe">
+    <form action="/addProduct" method="post" class="row m-5" enctype="multipart/form-data" >
+        <input class="form-control m-2" name="name" type="text" th:placeholder="#{label.chem.group}" aria-label="Введите группу элементов">
+        <input class="form-control m-2" name="description" type="text" th:placeholder="#{catatalog.label.description}"  aria-label="Введите описание">
+        <input class="form-control m-2" name="price" type="number" th:placeholder="#{label.price}" aria-label="Цена">
+        <input class="form-control m-2" name="image" type="file" id="formFile">
+        <label for="formFile" class="form-label" th:text="#{label.image}">Загрузите изображение</label>
+        <button class="btn btn-primary m-2" th:text="#{catalog.button.add}">Добавить</button>
+    </form>
+</th:block>
+</body>
+</html>

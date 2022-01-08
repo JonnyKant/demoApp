@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="one" >
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="/li?li=1" >Одноканальная СМО с отказами</a></li>
+        <li><a href="/li?li=2">Многоканальная СМО с отказами</a></li>
+        <li><a href="/li?li=3">Одноканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=4">Многоканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=5">Одноканальная СМО с ограниченной очередью</a></li>
+
+    </ul>
+
+<div th:if="${oneChanel!=null}" class="center-block well">
+    <dl>
+        <dt>Абсолютная пропускная способность (A)</dt>
+        <dd th:text="${oneChanel[0]}"></dd>
+        <dt>Относительная пропускная способность (Q)</dt>
+        <dd th:text="${oneChanel[1]}"></dd>
+        <dt>Вероятность принятия заявки</dt>
+        <dd th:text="${oneChanel[2]}"></dd>
+        <dt>Вероятность отказа</dt>
+        <dd th:text="${oneChanel[3]}"></dd>
+    </dl>
+</div>
+<form action="/one" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Одноканальная СМО с отказами</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput">Введите интенсивность входящего потока (λ)</label>
+            <div class="col-md-4">
+                <input id="textinput" name="lambda" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinputtime">Время обсуживания</label>
+            <div class="col-md-4">
+                <input id="textinputtime" name="time" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="oneChanel"></label>
+            <div class="col-md-4">
+                <button id="oneChanel" class="btn btn-primary">Отправить</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+</div>
+</body>
+</html>

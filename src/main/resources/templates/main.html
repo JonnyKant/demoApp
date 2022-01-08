@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Хим-Информатика</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/about"><img src="/image/logo.png" alt="" width="300" height="70"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/" th:text="#{main.catalog}">Каталог</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/order" th:text="#{main.basket}">Корзина</a>
+                </li>
+                <th:block th:if="${#authorization.expression('isAuthenticated()') &&  #strings.contains(#authentication.getAuthorities(),'ADMIN')}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/catalog" id="navbarCatalog" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="#{main.edit}">
+                        Редактировать
+                    </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarCatalog">
+                            <li><a class="dropdown-item" href="/addProduct" th:text="#{main.addProduct}">Добавить продукт</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/editProduct" th:text="#{main.editProduct}">Изменить продукт</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/showOrder" th:text="#{main.orders}">Заявки</a></li>
+                        </ul>
+                    </li>
+                </th:block>
+            </ul>
+            <ul  th:if="${#authorization.expression('isAuthenticated()')}" class="navbar-nav ms-auto" >
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/catalog" id="navbarCatalog" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        [[${#authorization.authentication.principal.username}]]
+                    </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarCatalog">
+                    <li><a class="dropdown-item" href="/logout" th:text="#{label.logut}"></a></li>
+                </ul>
+                </li>
+            </ul>
+            <form class="d-flex" action="/catalogSearch">
+                <input class="form-control me-2" type="search" name="search" aria-label="Search" th:placeholder="#{main.search}">
+                    <button class="btn btn-outline-success" type="submit" th:text="#{main.find}" >Поиск</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div th:if="${page} == 'catalog'">
+    <th:block th:replace="pages/catalog::catalogframe(products = ${products}, count = ${count})">
+    </th:block>
+</div>
+
+<div th:if="${page} == 'registration'">
+    <th:block th:replace="pages/registration::registrarionframe" >
+    </th:block>
+</div>
+<div th:if="${page} == 'order'">
+   <th:block th:replace="pages/order::orderframe(userWithOrderDto = ${userWithOrderDto})" >
+    </th:block>
+</div>
+<div th:if="${page} == 'addProduct'">
+    <th:block th:replace="pages/addProduct::addProductframe" >
+    </th:block>
+</div>
+<div th:if="${page} == 'editProduct/id'">
+    <th:block th:replace="pages/editProduct::editProductframeId(product = ${product})" >
+    </th:block>
+</div>
+<div th:if="${page} == 'editOrder/id'">
+    <th:block th:replace="pages/editOrder::editOrderframeId(order = ${order})" >
+    </th:block>
+</div>
+<div th:if="${page} == 'editProduct'">
+    <th:block th:replace="pages/editProduct::editProductframe(products = ${products})" >
+    </th:block>
+</div>
+<div th:if="${page} == 'login'">
+    <th:block th:replace="pages/login::loginframe" >
+    </th:block>
+</div>
+<div th:if="${page} == 'showOrders'">
+    <th:block th:replace="pages/showOrders::showOrdersframe" >
+    </th:block>
+</div>
+
+<div th:if="${page} == 'checkout'">
+    <th:block th:include="pages/checkout::checkoutframe">
+    </th:block>
+</div>
+<div th:if="${page} == 'about'">
+    <th:block th:include="pages/about::aboutframe">
+    </th:block>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>

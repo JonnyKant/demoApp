@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Системы массового обслуживания</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+
+
+<div class="maStyle">
+    <div th:if="${li == '1'}">
+        <div th:replace="oneChanel :: one"></div>
+</div>
+    <div th:if="${li=='2'}">
+        <div th:replace="twoChanel :: two"></div>
+    </div>
+    <div th:if="${li=='3'}">
+        <div th:replace="threeChanel :: three"></div>
+    </div>
+    <div th:if="${li=='4'}">
+        <div th:replace="fourChanel :: four"></div>
+    </div>
+    <div th:if="${li=='5'}">
+        <div th:replace="fiveChanel :: five"></div>
+    </div>
+
+</div>
+
+</body>
+</html>

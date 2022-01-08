@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="three">
+    <ul class="nav nav-tabs">
+        <li><a href="/li?li=1">Одноканальная СМО с отказами</a></li>
+        <li><a href="/li?li=2">Многоканальная СМО с отказами</a></li>
+        <li class="active"><a href="/li?li=3">Одноканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=4">Многоканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=5">Одноканальная СМО с ограниченной очередью</a></li>
+
+    </ul>
+<div th:if="${threeChanel!=null}" class="center-block well">
+    <dl>
+        <dt>Вероятность того, что в магазине не окажется покупателей (p0)</dt>
+        <dd th:text="${threeChanel[0]}"></dd>
+        <dt>Коэффициент загрузки (ro)</dt>
+        <dd th:text="${threeChanel[1]}"></dd>
+        <dt>Средняя длина очереди (L)</dt>
+        <dd th:text="${threeChanel[2]}"></dd>
+        <dt>Среднее пробывание покупателя в очереди (мин)</dt>
+        <dd th:text="${threeChanel[3]}"></dd>
+        <dt>Среднее число покупателей</dt>
+        <dd th:text="${threeChanel[4]}"></dd>
+        <dt>Среднее время прибывания покупателя в магазине (мин)</dt>
+        <dd th:text="${threeChanel[5]}"></dd>
+        <dt>Вероятность того, что в магазине окажется <span th:if="n!=null" th:utext="${n}"></span> покупателей </dt>
+        <dd th:text="${threeChanel[6]}"></dd>
+    </dl>
+</div>
+<form action="/three" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Одноканальная СМО с неограниченной очередью</legend>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput21">Введите интенсивность входящего потока (λ)</label>
+            <div class="col-md-4">
+                <input id="textinput21" name="lambda" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput22">Время обсуживания</label>
+            <div class="col-md-4">
+                <input id="textinput22" name="time" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput23">Вероятность, что в магазине окажется покупателей</label>
+            <div class="col-md-4">
+                <input id="textinput23" name="qantitybayers" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="threeChanel"></label>
+            <div class="col-md-4">
+                <button id="threeChanel" class="btn btn-primary">Отправить</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+</div>
+</body>
+</html>

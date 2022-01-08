@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/style.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="editOrderframeId(order)">
+
+    <div class="container-fluid text-center">
+        <div class="card mt-5" style="width: 18rem; margin: 0 auto;">
+            <div th:if="${successSend != null}" class="alert alert-info" th:text="#{label.edit.order.successSend}">message</div>
+            <div th:if="${unsuccessSend != null}" class="alert alert-info" th:text="#{label.form.unsuccessSend}">message</div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${order.getId()}"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${order.getAnalysisStatus()}">Card subtitle</h6>
+                <p class="card-text" th:text="${order.getOrderStatus()}">TEXT</p>
+                <p class="card-text" th:text="${order.getUser.getEmail}">TEXT</p>
+                <p class="card-text"> <b th:text="${order.getAmount()}"> </b> <b th:text="#{label.currency}"> </b></p>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="#{label.edit.order.products}">Card subtitle</h6>
+                    <th:block th:each="product: ${order.getProducts()}">
+                <p class="card-text"><a th:href="@{/editProduct/{product}(product = ${product.getId()})}" class="card-text" th:text="${product.getName()}">TEXT</a> <mark th:text="${product.checkAnalysis()}"></mark></p>
+</th:block>
+<a th:href="@{/sendOrder/{order}(order = ${order.getId()})}" class="btn btn-primary" th:text="#{label.edit.order.send}"></a>
+</div>
+</div>
+</div>
+</th:block>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>

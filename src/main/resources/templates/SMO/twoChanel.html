@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="two">
+    <ul class="nav nav-tabs">
+        <li><a href="/li?li=1">Одноканальная СМО с отказами</a></li>
+        <li class="active"><a href="/li?li=2">Многоканальная СМО с отказами</a></li>
+        <li><a href="/li?li=3">Одноканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=4">Многоканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=5">Одноканальная СМО с ограниченной очередью</a></li>
+
+    </ul>
+<div th:if="${twoChanel != null}" class="center-block well">
+    <dl>
+        <dt>Вероятность всех свободных каналов (p0)</dt>
+        <dd th:text="${twoChanel[0]}"></dd>
+        <dt>Один канал занят (p1)</dt>
+        <dd th:text="${twoChanel[1]}"></dd>
+        <dt>Два канала занято (p2)</dt>
+        <dd th:text="${twoChanel[2]}"></dd>
+        <dt>Все каналы заняты (p3)</dt>
+        <dd th:text="${twoChanel[3]}"></dd>
+        <dt>Абсолютная пропускная способность (A)</dt>
+        <dd th:text="${twoChanel[4]}"></dd>
+        <dt>Относительная пропускная способность (Q)</dt>
+        <dd th:text="${twoChanel[5]}"></dd>
+        <dt>Среднее число свободный каналов (N0)</dt>
+        <dd th:text="${twoChanel[6]}"></dd>
+        <dt>Коэффициент простоя каналов (Kпр)</dt>
+        <dd th:text="${twoChanel[7]}"></dd>
+        <dt>Среднее число занятых каналов (Nзан)</dt>
+        <dd th:text="${twoChanel[8]}"></dd>
+        <dt>Коэффициент загрузки каналов (Kзан)</dt>
+        <dd th:text="${twoChanel[9]}"></dd>
+    </dl>
+</div>
+<form action="/two" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Многоканальная СМО с отказами</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput11">Введите интенсивность входящего потока (λ)</label>
+            <div class="col-md-4">
+                <input id="textinput11" name="lambda" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput12">Время обсуживания</label>
+            <div class="col-md-4">
+                <input id="textinput12" name="time" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput13">Количество каналов</label>
+            <div class="col-md-4">
+                <input id="textinput13" name="kol" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="twoChanel"></label>
+            <div class="col-md-4">
+                <button id="twoChane" class="btn btn-primary">Отправить</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+</div>>
+</body>
+</html>

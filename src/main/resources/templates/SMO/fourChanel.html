@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="four">
+    <ul class="nav nav-tabs">
+        <li><a href="/li?li=1">Одноканальная СМО с отказами</a></li>
+        <li><a href="/li?li=2">Многоканальная СМО с отказами</a></li>
+        <li><a href="/li?li=3">Одноканальная СМО с неограниченной очередью</a></li>
+        <li class="active"><a href="/li?li=4">Многоканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=5">Одноканальная СМО с ограниченной очередью</a></li>
+
+    </ul>
+<div th:if="${fourChanel != null}" class="center-block well">
+    <dl>
+        <dt>Среднее число заявок в очереди</dt>
+        <dd th:text="${fourChanel[0]}"></dd>
+        <dt>Среднее время пребывания покупателя в очереди (мин) </dt>
+        <dd th:text="${fourChanel[1]}"></dd>
+        <dt>Среднее число покупателей в магазине</dt>
+        <dd th:text="${fourChanel[2]}"></dd>
+        <dt>Среднее время пребывания покупателя в магазине (мин)</dt>
+        <dd th:text="${fourChanel[3]}"></dd>
+    </dl>
+</div>
+<form action="/four" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Многоканальная СМО с неограниченной очередью</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput31">Введите интенсивность входящего потока (λ)</label>
+            <div class="col-md-4">
+                <input id="textinput31" name="lambda" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput32">Время обсуживания</label>
+            <div class="col-md-4">
+                <input id="textinput32" name="time" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="textinput33">Количество каналов</label>
+            <div class="col-md-4">
+                <input id="textinput33" name="kol" type="text" placeholder="" class="form-control input-md">
+                <span class="help-block">целое число</span>
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fourChanel"></label>
+            <div class="col-md-4">
+                <button id="fourChanel" class="btn btn-primary">Отправить</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+</div>
+</body>
+</html>

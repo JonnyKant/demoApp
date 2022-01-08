@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="registrarionframe">
+    <div th:if="${exists != null}" class="alert alert-info" th:text="#{label.form.exists}">message</div>
+    <div class="container-fluid text-center">
+        <div>
+            <img class="img-fluid" th:src="@{/image/logo.png}" />
+        </div>
+        <form action="/registration" th:object="${userDto}" method="POST" style="max-width: 350px; margin: 0 auto;">
+            <div class="border border-secondary p-3 rounded">
+                <p th:text="#{label.form.title.req}"></p>
+                <p>
+                    <label th:text="#{label.user.firstName}">first</label>
+                    <input th:field="*{firstName}" class="form-control"/>
+                <p th:each="error: ${#fields.errors('firstName')}"
+                   th:text="${error}">Validation error</p>
+                </p>
+                <p>
+                    <label th:text="#{label.user.lastName}">last</label>
+                    <input th:field="*{lastName}" class="form-control"/>
+                <p th:each="error : ${#fields.errors('lastName')}"
+                   th:text="${error}">Validation error</p>
+                </p>
+                <p>
+                    <label th:text="#{label.user.email}">email</label>
+                    <input type="email" th:field="*{email}" class="form-control"/>
+                <p th:each="error : ${#fields.errors('email')}"
+                   th:text="${error}">Validation error</p>
+                </p>
+                <p>
+                    <label th:text="#{label.user.password}">password</label>
+                    <input type="password" th:field="*{password}" class="form-control"/>
+                <p th:each="error : ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
+                </p>
+                <p>
+                    <label th:text="#{label.user.confirmPass}">confirm</label>
+                    <input type="password" th:field="*{matchingPassword}" class="form-control"/>
+                    <p th:each="error : ${#fields.errors('matchingPassword')}"
+                   th:text="${error}">Validation error</p>
+                </p>
+                </p>
+                <p>
+                    <button type="submit" th:text="#{label.form.submit.reg}" class="btn btn-primary">submit</button>
+                </p>
+            </div>
+        </form>
+        <a th:href="@{/login}" th:text="#{label.form.loginLink}">login</a>
+    </div>
+</th:block>
+</html>

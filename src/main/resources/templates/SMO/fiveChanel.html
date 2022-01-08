@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="five">
+    <ul class="nav nav-tabs">
+        <li><a href="/li?li=1">Одноканальная СМО с отказами</a></li>
+        <li><a href="/li?li=2">Многоканальная СМО с отказами</a></li>
+        <li><a href="/li?li=3">Одноканальная СМО с неограниченной очередью</a></li>
+        <li><a href="/li?li=4">Многоканальная СМО с неограниченной очередью</a></li>
+        <li class="active"><a href="/li?li=5">Одноканальная СМО с ограниченной очередью</a></li>
+
+    </ul>
+
+    <div th:if="${fiveChanel != null && Tp != null && modelCount!=null}" class="center-block well">
+        <dl>
+            <div th:if="k!=null">
+                <dt>Максимальное количество машин на заправке</dt>
+                <dt>
+                    <span th:utext="${k}"/>
+                </dt>
+            </div>
+            <dt>Относительная пропускная способность (A)</dt>
+            <dd th:text="${fiveChanel[0]}"></dd>
+            <dt>Абсолютная пропускная способность (Q)</dt>
+            <dd th:text="${fiveChanel[1]}"></dd>
+            <dt>Вероятность отказа</dt>
+            <dd th:text="${fiveChanel[2]}"></dd>
+            <dt>Среднее число автомашин в очереди</dt>
+            <dd th:text="${fiveChanel[3]}"></dd>
+            <dt>Среднее время машин на станции (мин)</dt>
+            <dd th:text="${fiveChanel[4]}"></dd>
+            <dt>Среднее число автоамшин на станции </dt>
+            <dd th:text="${fiveChanel[5]}"></dd>
+            <dt>Среднее время нахождения машин на станции (мин)</dt>
+            <dd th:text="${fiveChanel[6]}"></dd>
+            <dt>Событие p0 произошла (количество) </dt>
+            <dd th:text="${modelCount[0]}"></dd>
+            <dt>Событие p1 произошла (количество)</dt>
+            <dd th:text="${modelCount[1]}"></dd>
+            <dt>Событие p2 произошла (количество)</dt>
+            <dd th:text="${modelCount[2]}"></dd>
+            <dt>Событие p_отк произошла (количество)</dt>
+            <dd th:text="${modelCount[3]}"></dd>
+            <dt>T1</dt>
+            <dd th:text="${Tp[0]}"></dd>
+            <dt>T2</dt>
+            <dd th:text="${Tp[1]}"></dd>
+            <dt>T3</dt>
+            <dd th:text="${Tp[2]}"></dd>
+            <dt>T_отк</dt>
+            <dd th:text="${Tp[3]}"></dd>
+
+
+        </dl>
+    </div>
+    <form action="/five" class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Одноканальная СМО с ограниченной очередью</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput41">Введите интенсивность входящего потока (λ)</label>
+                <div class="col-md-4">
+                    <input id="textinput41" name="lambda" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">целое число</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput42">Время обсуживания</label>
+                <div class="col-md-4">
+                    <input id="textinput42" name="time" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">целое число</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput43">Максимальное количество машин в очереди</label>
+                <div class="col-md-4">
+                    <input id="textinput43" name="kol" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">целое число</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput43">Имитационное количество заявок</label>
+                <div class="col-md-4">
+                    <input id="textinput45" name="Tall" type="text" placeholder="" class="form-control input-md">
+                    <span class="help-block">целое число</span>
+                </div>
+            </div>
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fourChanel"></label>
+                <div class="col-md-4">
+                    <button id="fourChanel" class="btn btn-primary">Отправить</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="orderframe(userWithOrderDto)">
+    <div th:if="${exists != null}" class="alert alert-info" th:text="#{label.form.error.no.auth}">message</div>
+    <div th:if="${emptyOrder != null}" class="alert alert-info" th:text="#{label.form.error.emptyOrder}">message</div>
+    <div th:if="${succeededPay != null}" class="alert alert-info" th:text="#{label.form.succededPay}">message</div>
+    <div class="container mt-5" >
+        <div class="row">
+            <div class="col-sm">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{order.name}">Наименование</th>
+                        <th scope="col" th:text="#{order.price}">Цена</th>
+                        <th scope="col" th:text="#{order.delite.from.order}">Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:if="${order} != null">
+                        <tr th:each="product,iter: ${order.getProducts()}">
+                            <th scope="row" th:text="${product.getName()}"></th>
+                            <th scope="row"> <b th:with="lang=${lang}" th:text="${#strings.equalsIgnoreCase(lang,'ru')} ? ${product.getPrice() *86} : ${product.getPrice()}"></b> <b>[[#{label.currency}]] </b></th>
+                            <th scope="row"><a th:href="@{/delInOrder(product=${product.getId()})}" class="btn btn-primary "th:text="#{order.delite}">Удалить</a></th>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+                <div th:if="${!#authorization.expression('isAuthenticated()')}" class="col-sm">
+                    <form th:action="@{/noAuthOrder}" th:object="${userWithOrderDto}" method="post">
+                    <p>
+                        <label th:text="#{label.user.firstName}">first</label>
+                        <input th:field="*{firstName}" class="form-control"/>
+                    <p th:each="error: ${#fields.errors('firstName')}"
+                       th:text="${error}">Validation error</p>
+                    </p>
+                    <p>
+                        <label th:text="#{label.user.lastName}">last</label>
+                        <input th:field="*{lastName}" class="form-control"/>
+                    <p th:each="error : ${#fields.errors('lastName')}"
+                       th:text="${error}">Validation error</p>
+                    </p>
+                    <p>
+                        <label th:text="#{label.user.email}">email</label>
+                        <input type="email" th:field="*{email}" class="form-control"/>
+                    <p th:each="error : ${#fields.errors('email')}"
+                       th:text="${error}">Validation error</p>
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <p>
+                            <button type="submit" th:text="#{label.form.submit.order}" class="btn btn-primary ">submit</button>
+                        </p>
+                    </div>
+                    </form>
+                </div>
+            <div class="d-flex justify-content-center" th:if="${#authorization.expression('isAuthenticated()')}">
+                <a th:href="@{/authOrder}" th:text="#{label.form.submit.order}" class="btn btn-primary">submit</a>
+            </div>
+        </div>
+
+    </div>
+    <script th:inline="javascript">
+        function sendIndexProduct(productid) {
+            const xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(this.readyState==4){
+                    if(this.status >=200 && xhr.status < 300){
+                        console.log("Запрос выполнен");
+                    }
+                }
+            }
+            xhr.open('POST', '/delInOrder', true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            var body = 'product='+encodeURIComponent(productid);
+            xhr.send(body);
+        }
+    </script>
+</th:block>
+</html>
